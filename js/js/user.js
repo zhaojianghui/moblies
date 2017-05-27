@@ -1,0 +1,30 @@
+require(['../../config'],function(){
+	require(['jquery','user'],function($,user){
+		var userID=localStorage.getItem('userID')||'[]';
+		console.log(userID)
+		if(userID){
+			$('.username').html(userID)
+		}
+		$.getJSON('http://datainfo.duapp.com/shopdata/getuser.php?callback=?',{userID:userID},function(data){
+			 console.log(data);
+			 $('.user-img').attr('src',data[0].userimg_url);
+		})
+		$('.list-item').click(function(){
+			var index=$(this).index();
+			//console.log($(this).index())
+			$(this).addClass('active').siblings().removeClass('active');
+			if(index==1){
+				window.location.href="list.html"
+			}
+			if(index==2){
+				window.location.href="shoppingCat.html"
+			}
+			if(index==4){
+				window.location.href="reward.html"
+			}
+		})
+		$('.history').click(function(){
+			window.location.href="history.html";
+		})
+	})
+})
